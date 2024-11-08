@@ -1,0 +1,57 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "main.py",
+        "use": "@vercel/python",
+        "config": {
+          "maxLambdaSize": "50mb",
+          "runtime": "python3.9",
+          "memory": 1024,
+          "maxDuration": 30
+        }
+      },
+      {
+        "src": "static/**",
+        "use": "@vercel/static"
+      },
+      {
+        "src": "audio_files/**",
+        "use": "@vercel/static"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/debug",
+        "dest": "main.py"
+      },
+      {
+        "src": "/status",
+        "dest": "main.py"
+      },
+      {
+        "src": "/static/(.*)",
+        "dest": "/static/$1"
+      },
+      {
+        "src": "/audio_files/(.*)",
+        "dest": "/audio_files/$1"
+      },
+      {
+        "src": "/stream",
+        "dest": "main.py",
+        "headers": {
+          "Cache-Control": "no-cache",
+          "Connection": "keep-alive"
+        }
+      },
+      {
+        "src": "/(.*)",
+        "dest": "main.py"
+      }
+    ],
+    "env": {
+      "PYTHONPATH": ".",
+      "DEBUG": "true"
+    }
+  }

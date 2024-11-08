@@ -1,0 +1,12 @@
+.vercel
+# Ignore virtual environment directories
+.venv/
+
+# Ignore Python cache directories
+__pycache__/
+
+# Ignore macOS system files
+.DS_Store
+
+# Ignore large audio files
+audio_files/audio.wav
